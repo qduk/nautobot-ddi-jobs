@@ -1,0 +1,15 @@
+// /etc/bind/named.conf.local
+
+key "{{ bind9_key_name }}" {
+        algorithm hmac-sha256;
+        secret "{{ bind9_key_secret }}";
+};
+
+{% for zone in zones %}
+zone "{{ zone.name }}" {
+        type master;
+        file "/etc/bind/zones/{{ zone.name }}.zone";
+        allow-update { key "{{ bind9_key_name }}"; };
+        journal "/etc/bind/zones/{{ zone.name }}.jnl";
+};
+{% endfor %}

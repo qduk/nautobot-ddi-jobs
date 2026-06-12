@@ -1,0 +1,15 @@
+$TTL {{ zone.ttl}}
+{{ "%-24s" | format("@") }}	IN	SOA	{{ zone.soa_mname }}. {{ zone.soa_rname }}. (
+									{{ "%-16s" | format(soa_serial)}}; serial
+									{{ "%-16s" | format(zone.soa_refresh)}}; refresh
+									{{ "%-16s" | format(zone.soa_retry)}}; retry
+									{{ "%-16s" | format(zone.soa_expire)}}; expire
+									{{ "%-16s" | format(zone.soa_minimum)}}; minimum
+								)
+
+{% for record in ns_records %}
+{{ "%-24s" | format("") }}	IN	{{ "%-8s" | format(record.type) }}	{{ record.value }}.
+{% endfor %}
+{% for record in other_records %}
+{{ "%-16s" | format(record.name) }}	{{ record.ttl }}	IN	{{ "%-8s" | format(record.type) }}	{{ record.value }}.
+{% endfor %}
