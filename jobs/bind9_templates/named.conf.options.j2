@@ -1,0 +1,15 @@
+// /etc/bind/named.conf.options
+
+options {
+    // Set the working directory for writable files (journals, stats, etc.)
+    directory "/var/cache/bind";
+
+    // Standard options
+    recursion yes;
+    notify explicit;
+    allow-query { any; };
+    listen-on-v6 { any; };
+    
+    // For security, it's good practice to hide the version
+    version "not currently available";
+};

@@ -1,0 +1,10 @@
+// /etc/bind/named.conf
+
+// Include the options file, where we set the working directory
+include "/etc/bind/named.conf.options";
+
+// Include the local file, where we define our custom zones and keys
+include "/etc/bind/named.conf.local";
+
+// Include the default zones that come with BIND (like localhost)
+include "/etc/bind/named.conf.default-zones";
