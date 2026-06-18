@@ -34,6 +34,7 @@ Supported record types (both jobs): **A, AAAA, NS, CNAME, MX, TXT, PTR, SRV**.
   installed and enabled (provides the DNS Zone / record models).
 - This repository, reachable as a Git repository Nautobot can sync.
 - An existing BIND9 server meeting the requirements below.
+- The python library dnspython must be installed in the Nautobot environment.
 - (Optional, for verification) the `dig` / `nsupdate` CLI tools.
 
 ### What your BIND9 server must provide
