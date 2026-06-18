@@ -6,7 +6,7 @@ import os
 from datetime import datetime, timezone
 from itertools import chain
 from pathlib import Path
-from socket import gethostbyname
+import socket
 from urllib.parse import urlparse
 
 import dns.query
@@ -204,7 +204,9 @@ class BIND9JobHookReceiver(JobHookReceiver):
             raise ValueError(f"Unknown action: {action}")
 
         try:
-            response = dns.query.tcp(update, where=gethostbyname(server_name), port=server_port)
+            addr_info = socket.getaddrinfo(server_name, server_port, socket.AF_UNSPEC, socket.SOCK_STREAM)
+            resolved_ip = addr_info[0][4][0]
+            response = dns.query.tcp(update, where=resolved_ip, port=server_port)
         except AttributeError as e:
             raise AttributeError(f"DNS query failed: {e}") from e
         except ConnectionRefusedError as e:
